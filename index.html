@@ -1,0 +1,220 @@
+		<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+	<title>Map Template Browser Title</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: "whitesmoke";
+			font-family: "Noto Sans", sans-serif;
+			color: #3d3d3d;
+		}
+
+		h1 {
+			position: absolute;
+			margin-top: 0;
+			top: 10px;
+			left: 45px;
+			font-size: 2em;
+			font-family: "Lora", serif;
+			letter-spacing: .04em;
+			padding: 10px 15px;
+			background: rgba(256, 256, 256);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		h2 {
+			font-family: "Lora", serif;
+			letter-spacing: .04em;
+		}
+
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+
+		section {
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+			width: 280px;
+			margin: 20px auto;
+			padding: 0 15px;
+			background: rgba(256, 256, 256);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		p {
+			font-size: .9em;
+			line-height: 1.5em;
+		}
+
+		a {
+			color: #005daa;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Vernal and Nevada Falls via the Mist Trail</h1>
+
+	<div id='map'></div>
+
+	<section>
+		<h2>About this map</h2>
+
+		<p>This map marks the route that my family and I hiked on our visit to Yosemite National Park on May 20, 2019.</p>
+
+		<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-style:solid;border-width:0px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;
+  padding:10px 5px;word-break:normal;}
+.tg th{border-style:solid;border-width:0px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-1wig{font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-7zrl{text-align:center;vertical-align:bottom}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-7zrl">Length</th>
+    <th class="tg-7zrl">Elevation gain</th>
+    <th class="tg-7zrl">Moving time</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-1wig">7.72 mi</td>
+    <td class="tg-1wig">1,864 ft</td>
+    <td class="tg-1wig">5:08:50</td>
+  </tr>
+  <tr>
+    <td class="tg-7zrl">Avg. pace</td>
+    <td class="tg-7zrl">Calories</td>
+    <td class="tg-7zrl">Total time</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">39:60</td>
+    <td class="tg-1wig">4,904</td>
+    <td class="tg-1wig">5:30:24</td>
+  </tr>
+</tbody>
+</table>
+
+		<p>Hike recorded with <a href="https://www.alltrails.com/explore/recording/vernal-and-nevada-falls-via-the-mist-trail--4658?u=i">&copy; AllTrails</a></p>
+		<p>Map authored by Jason Ehlenberger</p>
+
+	</section>
+
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+	<script src="data/route.js"></script>
+
+	<script>
+
+console.log(data)
+
+//options to be used when creating the map
+		var options = {
+			center: [37.73031, -119.55915],
+			zoom: 50
+		}
+
+//creation of the Leaflet map
+		var map = L.map('map', options);
+
+//request to load basemap
+var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	maxZoom: 20,
+	attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+//string content to be inserted into a tooltip
+//		var message = 'Beacon Heights!';
+
+//create a Leaflet marker, centered on the map's center.
+//		L.marker(map.getCenter())
+//			.bindTooltip(message) //bind the tooltip and message to the marker
+//			.addTo(map) // add the marker to the map`
+//			.openTooltip(); // open the tooltip
+
+var myRoute = L.geoJson(data, {
+		filter: function(feature) {
+			if(feature.geometry.type == "LineString") {
+				return feature;
+			}
+		},
+
+		style: function(feature) {
+			return {
+				color: "red",
+				weight: 3,
+				opacity: 0.8,
+				dashArray: "5,1"
+			}
+		}
+	}).addTo(map);
+
+	myRoute.bindPopup("The hike was slow, but strenuous!");
+
+	var myStops = L.geoJson(data, {
+		filter : function(feature) {
+if(feature.geometry.type == "Point") {
+return feature;
+}
+},
+onEachFeature : function(feature, layer) {
+layer.bindTooltip(feature.properties['name']);
+}
+}).addTo(map);
+
+ map.fitBounds(myRoute.getBounds());
+
+ //empty popup
+ var popup = L.popup();
+
+ //write function to set properties
+ function onMapClick(e) {
+   popup
+   .setLatLng(e.latlng)
+   .setContent("You clicked the map at " + e.latlng.toString())
+   .openOn(map);
+ }
+
+ //listen for click event
+ map.on('click', onMapClick);
+
+ //Load GeoJSON from external file
+ L.geoJson.ajax("data", {
+   onEachFeature: function(feature, layer) {
+     layer.bindPopup(feature.properties.name);
+   }
+ }).addTo(map);
+
+	</script>
+
+</body>
+
+</html>
