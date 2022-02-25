@@ -78,7 +78,7 @@
 
 <body>
 
-	<h1>Vernal and Nevada Falls via the Mist Trail</h1>
+	<h1>Vernal Fall via the Mist Trail</h1>
 
 	<div id='map'></div>
 
@@ -139,7 +139,7 @@ console.log(data)
 //options to be used when creating the map
 		var options = {
 			center: [37.73031, -119.55915],
-			zoom: 50
+			zoom: 14.3
 		}
 
 //creation of the Leaflet map
@@ -152,13 +152,7 @@ var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}
 }).addTo(map);
 
 //string content to be inserted into a tooltip
-//		var message = 'Beacon Heights!';
 
-//create a Leaflet marker, centered on the map's center.
-//		L.marker(map.getCenter())
-//			.bindTooltip(message) //bind the tooltip and message to the marker
-//			.addTo(map) // add the marker to the map`
-//			.openTooltip(); // open the tooltip
 
 var myRoute = L.geoJson(data, {
 		filter: function(feature) {
@@ -190,7 +184,7 @@ layer.bindTooltip(feature.properties['name']);
 }
 }).addTo(map);
 
- map.fitBounds(myRoute.getBounds());
+ // map.fitBounds(myRoute.getBounds());
 
  //empty popup
  var popup = L.popup();
