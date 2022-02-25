@@ -3,7 +3,7 @@
 
 **Project name:** Mist Trail
 
-**Brief introduction:** This web map was created as a demonstration of compentency for Lab 3, GHY3412: Web Mapping course, taught by Dr. Jonathon Sugg at Appalachian State University. This lab was submitted late.
+**Brief introduction:** This web map was created as a demonstration of compentency for Lab 3, GHY3412: Web Mapping course, taught by Dr. Johnathan Sugg at Appalachian State University. This lab was submitted late.
 
 **Major functions:** GeoJson manipulation; Use of markers, polylines, basemap, and tooltips.
 Libraries: JQuery, AJAX, and Leaflet.
